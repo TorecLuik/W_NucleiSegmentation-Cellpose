@@ -1,8 +1,8 @@
 {
-  "name": "",
-  "description": "",
+  "name": "NucleiSegmentation-Cellpose",
+  "description": "2D nuclei segmentation using Cellpose",
   "container-image": {
-    "image": "neubiaswg5/w_",
+    "image": "neubiaswg5/w_nucleisegmentation-cellpose",
     "type": "singularity"
   },
   "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE",

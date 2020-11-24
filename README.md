@@ -1,2 +1,2 @@
-# W_Template
-Workflow template repository
+# W_NucleiSegmentation-Cellpose
+

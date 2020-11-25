@@ -22,7 +22,7 @@ def main(argv):
         bj.job.update(progress=25, statusComment="Launching workflow...")
 
         # Add here the code for running the analysis script
-        cmd = ["python", "-m", "cellpose", "--dir", in_path, "--pretrained_model", "nuclei", "--save_tif"]#, "--diameter" "{:f}".format(bj.parameters.diameter)]
+        cmd = ["python", "-m", "cellpose", "--dir", in_path, "--pretrained_model", "nuclei", "--save_tif", "--all_channels", "--diameter", "{:f}".format(bj.parameters.diameter), "--cellprob_threshold", "{:f}".format(bj.parameters.prob_threshold)]
         status = subprocess.run(cmd)
 
         if status.returncode != 0:

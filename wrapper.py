@@ -22,10 +22,13 @@ def main(argv):
 
         # Make sure all images have at least 224x224 dimensions
         # and that minshape / maxshape * minshape >= 224
+        nuc_channel = 0 # 0 = Grayscale, 1,2,3 = rgb channel
         resized = {}
         for bfimg in in_imgs:
             fn = os.path.join(in_path, bfimg.filename)
             img = imageio.imread(fn)
+            if len(img.shape) > 2:
+                nuc_channel = 3
             minshape = min(img.shape[:2])
             maxshape = max(img.shape[:2])
             if minshape != maxshape or minshape < 224:
@@ -45,6 +48,7 @@ def main(argv):
         bj.job.update(progress=25, statusComment="Launching workflow...")
 
         # Add here the code for running the analysis script
+        #"--chan", "{:d}".format(nuc_channel)
         cmd = ["python", "-m", "cellpose", "--dir", tmp_path, "--pretrained_model", "nuclei", "--save_tif", "--no_npy", "--all_channels", "--diameter", "{:f}".format(bj.parameters.diameter), "--cellprob_threshold", "{:f}".format(bj.parameters.prob_threshold)]
         status = subprocess.run(cmd)
 

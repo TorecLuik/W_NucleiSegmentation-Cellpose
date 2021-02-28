@@ -19,6 +19,8 @@ RUN cp /biaflows-utilities/bin/* /usr/bin/ && \
 
 # ------------------------------------------------------------------------------
 
+RUN pip install imageio
+
 RUN pip install cellpose
 
 RUN mkdir /root/.cellpose && \

@@ -20,8 +20,8 @@ RUN cp /biaflows-utilities/bin/* /usr/bin/ && \
 # ------------------------------------------------------------------------------
 
 RUN pip install imageio
-
 RUN pip install cellpose
+RUN pip install numpy==1.19.4
 
 RUN mkdir /root/.cellpose && \
     mkdir /root/.cellpose/models && \

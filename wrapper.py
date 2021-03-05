@@ -4,6 +4,8 @@ import shutil
 import subprocess
 import imageio
 import numpy as np
+import skimage
+import skimage.color
 from cytomine.models import Job
 from biaflows import CLASS_OBJSEG, CLASS_SPTCNT, CLASS_PIXCLA, CLASS_TRETRC, CLASS_LOOTRC, CLASS_OBJDET, CLASS_PRTTRK, CLASS_OBJTRK
 from biaflows.helpers import BiaflowsJob, prepare_data, upload_data, upload_metrics, get_discipline

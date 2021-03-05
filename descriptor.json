@@ -5,7 +5,7 @@
     "image": "neubiaswg5/w_nucleisegmentation-cellpose",
     "type": "singularity"
   },
-  "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE DIAMETER PROB_THRESHOLD",
+  "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE DIAMETER PROB_THRESHOLD NUC_CHANNEL",
   "inputs": [
     {
       "id": "cytomine_host",
@@ -70,6 +70,17 @@
       "name": "Probability threshold, centered at 0.0",
       "description": "Probability threshold, centered at 0.0",
       "default-value": 0.0,
+      "set-by-server": false,
+      "optional": true,
+      "type": "Number"
+    },
+    {
+      "id": "nuc_channel",
+      "value-key": "@ID",
+      "command-line-flag": "--@id",
+      "name": "Nuclei channel",
+	"description": "Use default 0 for grayscale and RGB that should be converted to grayscale based on luminance. Use 1, 2 or 3 to select a specific RGB channel",
+      "default-value": 0,
       "set-by-server": false,
       "optional": true,
       "type": "Number"

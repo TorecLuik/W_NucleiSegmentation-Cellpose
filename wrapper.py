@@ -32,7 +32,15 @@ def main(argv):
             fn = os.path.join(in_path, bfimg.filename)
             img = imageio.imread(fn)
             if len(img.shape) > 2 and nuc_channel == 0:
-                img = skimage.color.rgb2gray(img)
+                gray_rgb = False
+                if np.array_equal(img[:,:,0],img[:,:,1]) and np.array_equal(img[:,:,0],img[:,:,2]):
+                    gray_rgb = True
+                img = skimage.color.rgb2gray(img) * 255
+                img = img.astype(np.uint8)
+                # Invert intensity if not grayscale img ie. expect the image
+                # to be H&E stained image with dark nuclei
+                if not gray_rgb:
+                    img = np.invert(img)
             minshape = min(img.shape[:2])
             maxshape = max(img.shape[:2])
             if minshape != maxshape or minshape < 224:

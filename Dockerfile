@@ -48,5 +48,7 @@ RUN mkdir /root/.cellpose && \
     wget https://www.cellpose.org/models/size_nucleitorch_0.npy
 
 ADD wrapper.py /app/wrapper.py
+# for running the wrapper locally
+ADD descriptor.json /app/descriptor.json
 
 ENTRYPOINT ["python3.7","/app/wrapper.py"]

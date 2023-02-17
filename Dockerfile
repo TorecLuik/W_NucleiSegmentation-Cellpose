@@ -31,21 +31,21 @@ RUN mkdir /root/.cellpose && \
     wget http://www.cellpose.org/models/nuclei_2 && \
     wget http://www.cellpose.org/models/nuclei_3 && \
     wget http://www.cellpose.org/models/size_nuclei_0.npy && \
-    wget https://www.cellpose.org/models/cyto_0 && \
-    wget https://www.cellpose.org/models/cyto_1 && \
-    wget https://www.cellpose.org/models/cyto_2 && \
-    wget https://www.cellpose.org/models/cyto_3 && \
-    wget https://www.cellpose.org/models/size_cyto_0.npy && \
-    wget https://www.cellpose.org/models/cytotorch_0 && \
-    wget https://www.cellpose.org/models/cytotorch_1 && \
-    wget https://www.cellpose.org/models/cytotorch_2 && \
-    wget https://www.cellpose.org/models/cytotorch_3 && \
-    wget https://www.cellpose.org/models/size_cytotorch_0.npy && \
-    wget https://www.cellpose.org/models/nucleitorch_0 && \
-    wget https://www.cellpose.org/models/nucleitorch_1 && \
-    wget https://www.cellpose.org/models/nucleitorch_2 && \
-    wget https://www.cellpose.org/models/nucleitorch_3 && \
-    wget https://www.cellpose.org/models/size_nucleitorch_0.npy
+    wget --no-check-certificate https://www.cellpose.org/models/cyto_0 && \
+    wget --no-check-certificate https://www.cellpose.org/models/cyto_1 && \
+    wget --no-check-certificate https://www.cellpose.org/models/cyto_2 && \
+    wget --no-check-certificate https://www.cellpose.org/models/cyto_3 && \
+    wget --no-check-certificate https://www.cellpose.org/models/size_cyto_0.npy && \
+    wget --no-check-certificate https://www.cellpose.org/models/cytotorch_0 && \
+    wget --no-check-certificate https://www.cellpose.org/models/cytotorch_1 && \
+    wget --no-check-certificate https://www.cellpose.org/models/cytotorch_2 && \
+    wget --no-check-certificate https://www.cellpose.org/models/cytotorch_3 && \
+    wget --no-check-certificate https://www.cellpose.org/models/size_cytotorch_0.npy && \
+    wget --no-check-certificate https://www.cellpose.org/models/nucleitorch_0 && \
+    wget --no-check-certificate https://www.cellpose.org/models/nucleitorch_1 && \
+    wget --no-check-certificate https://www.cellpose.org/models/nucleitorch_2 && \
+    wget --no-check-certificate https://www.cellpose.org/models/nucleitorch_3 && \
+    wget --no-check-certificate https://www.cellpose.org/models/size_nucleitorch_0.npy
 
 ADD wrapper.py /app/wrapper.py
 # for running the wrapper locally

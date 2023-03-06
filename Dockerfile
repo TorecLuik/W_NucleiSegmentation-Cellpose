@@ -52,4 +52,15 @@ ADD wrapper.py /app/wrapper.py
 # for running the wrapper locally
 ADD descriptor.json /app/descriptor.json
 
-ENTRYPOINT ["python3.7","/app/wrapper.py"]
+# ------------------------------------------------------------------------------
+# Install Gradio web app
+RUN pip install jinja2 gradio
+
+COPY . /app
+
+WORKDIR /app
+
+EXPOSE 7860
+
+# ENTRYPOINT ["python3.7","/app/wrapper.py"]
+ENTRYPOINT ["python", "app.py"]

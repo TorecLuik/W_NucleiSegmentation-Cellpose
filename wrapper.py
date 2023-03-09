@@ -61,9 +61,13 @@ def main(argv):
 
         # Add here the code for running the analysis script
         #"--chan", "{:d}".format(nuc_channel)
-        print(f"Chosen model: {bj.parameters.cp_model} | Channel {nuc_channel} | Diameter {bj.parameters.diameter} | Cell prob threshold {bj.parameters.prob_threshold} | GPU {bj.parameters.use_gpu}")
-        cmd = ["python", "-m", "cellpose", "--dir", tmp_path, "--pretrained_model", "{:f}".format(bj.parameters.cp_model), "--save_tif", "--no_npy", "--chan", "{:d}".format(nuc_channel), "--diameter", "{:f}".format(bj.parameters.diameter), "--cellprob_threshold", "{:f}".format(bj.parameters.prob_threshold)]
-        if bj.parameters.use_gpu:
+        prob_thresh = bj.parameters.prob_threshold
+        diameter = bj.parameters.diameter
+        cp_model = bj.parameters.cp_model
+        use_gpu = bj.parameters.use_gpu
+        print(f"Chosen model: {cp_model} | Channel {nuc_channel} | Diameter {diameter} | Cell prob threshold {prob_thresh} | GPU {use_gpu}")
+        cmd = ["python", "-m", "cellpose", "--dir", tmp_path, "--pretrained_model", f"{cp_model}", "--save_tif", "--no_npy", "--chan", "{:d}".format(nuc_channel), "--diameter", "{:f}".format(diameter), "--cellprob_threshold", "{:f}".format(prob_thresh)]
+        if use_gpu:
             print("Using GPU!")
             cmd.append("--use_gpu")
         status = subprocess.run(cmd)

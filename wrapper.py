@@ -61,7 +61,11 @@ def main(argv):
 
         # Add here the code for running the analysis script
         #"--chan", "{:d}".format(nuc_channel)
-        cmd = ["python", "-m", "cellpose", "--dir", tmp_path, "--pretrained_model", "nuclei", "--save_tif", "--no_npy", "--chan", "{:d}".format(nuc_channel), "--diameter", "{:f}".format(bj.parameters.diameter), "--cellprob_threshold", "{:f}".format(bj.parameters.prob_threshold)]
+        print(f"Chosen model: {bj.parameters.cp_model} | Channel {nuc_channel} | Diameter {bj.parameters.diameter} | Cell prob threshold {bj.parameters.prob_threshold} | GPU {bj.parameters.use_gpu}")
+        cmd = ["python", "-m", "cellpose", "--dir", tmp_path, "--pretrained_model", "{:f}".format(bj.parameters.cp_model), "--save_tif", "--no_npy", "--chan", "{:d}".format(nuc_channel), "--diameter", "{:f}".format(bj.parameters.diameter), "--cellprob_threshold", "{:f}".format(bj.parameters.prob_threshold)]
+        if bj.parameters.use_gpu:
+            print("Using GPU!")
+            cmd.append("--use_gpu")
         status = subprocess.run(cmd)
 
         if status.returncode != 0:

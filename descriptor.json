@@ -2,10 +2,10 @@
   "name": "NucleiSegmentation-Cellpose",
   "description": "2D nuclei segmentation using Cellpose",
   "container-image": {
-    "image": "neubiaswg5/w_nucleisegmentation-cellpose",
+    "image": "torecluik/t_nucleisegmentation-cellpose",
     "type": "singularity"
   },
-  "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE DIAMETER PROB_THRESHOLD NUC_CHANNEL",
+  "command-line": "python wrapper.py CYTOMINE_HOST CYTOMINE_PUBLIC_KEY CYTOMINE_PRIVATE_KEY CYTOMINE_ID_PROJECT CYTOMINE_ID_SOFTWARE DIAMETER PROB_THRESHOLD NUC_CHANNEL USE_GPU CP_MODEL",
   "inputs": [
     {
       "id": "cytomine_host",
@@ -84,6 +84,28 @@
       "set-by-server": false,
       "optional": true,
       "type": "Number"
+    },
+    {
+      "id": "use_gpu",
+      "value-key": "@ID",
+      "command-line-flag": "--@id",
+      "name": "GPU acceleration?",
+	    "description": "If true, use GPU. Else use CPU",
+      "default-value": true,
+      "set-by-server": false,
+      "optional": true,
+      "type": "Boolean"
+    },
+    {
+      "id": "cp_model",
+      "value-key": "@ID",
+      "command-line-flag": "--@id",
+      "name": "CellPose Model",
+	    "description": "Use default nuclei for nuclei model. Other option is cyto",
+      "default-value": "nuclei",
+      "set-by-server": false,
+      "optional": true,
+      "type": "String"
     }
   ],
 

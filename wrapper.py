@@ -9,6 +9,7 @@ import skimage.color
 from cytomine.models import Job
 from biaflows import CLASS_OBJSEG, CLASS_SPTCNT, CLASS_PIXCLA, CLASS_TRETRC, CLASS_LOOTRC, CLASS_OBJDET, CLASS_PRTTRK, CLASS_OBJTRK
 from biaflows.helpers import BiaflowsJob, prepare_data, upload_data, upload_metrics, get_discipline
+import time
 
 
 def main(argv):
@@ -21,6 +22,9 @@ def main(argv):
         
         # 1. Prepare data for workflow
         in_imgs, gt_imgs, in_path, gt_path, out_path, tmp_path = prepare_data(problem_cls, bj, is_2d=True, **bj.flags)
+        
+        # MAKE SURE TMP PATH IS UNIQUE
+        tmp_path += f"_{int(time.time())}"  # timestamp
 
         # Make sure all images have at least 224x224 dimensions
         # and that minshape / maxshape * minshape >= 224
@@ -96,6 +100,7 @@ def main(argv):
         upload_metrics(problem_cls, bj, in_imgs, gt_path, out_path, tmp_path, **bj.flags)
 
         # 5. Pipeline finished
+        os.rmdir(tmp_path)  # cleanup tmp
         bj.job.update(progress=100, status=Job.TERMINATED, status_comment="Finished.")
 
 

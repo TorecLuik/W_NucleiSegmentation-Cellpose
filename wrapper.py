@@ -10,6 +10,7 @@ from cytomine.models import Job
 from biaflows import CLASS_OBJSEG, CLASS_SPTCNT, CLASS_PIXCLA, CLASS_TRETRC, CLASS_LOOTRC, CLASS_OBJDET, CLASS_PRTTRK, CLASS_OBJTRK
 from biaflows.helpers import BiaflowsJob, prepare_data, upload_data, upload_metrics, get_discipline
 import time
+import shutil
 
 
 def main(argv):
@@ -101,7 +102,7 @@ def main(argv):
         upload_metrics(problem_cls, bj, in_imgs, gt_path, out_path, tmp_path, **bj.flags)
 
         # 5. Pipeline finished
-        os.rmdir(tmp_path)  # cleanup tmp
+        shutil.rmtree(tmp_path)  # cleanup tmp
         bj.job.update(progress=100, status=Job.TERMINATED, status_comment="Finished.")
 
 

@@ -24,7 +24,8 @@ def main(argv):
         in_imgs, gt_imgs, in_path, gt_path, out_path, tmp_path = prepare_data(problem_cls, bj, is_2d=True, **bj.flags)
         
         # MAKE SURE TMP PATH IS UNIQUE
-        tmp_path += f"_{int(time.time())}"  # timestamp
+        tmp_path += f"/{int(time.time())}"  # timestamp
+        os.mkdir(tmp_path)  # setup tmp
 
         # Make sure all images have at least 224x224 dimensions
         # and that minshape / maxshape * minshape >= 224

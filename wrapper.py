@@ -2,7 +2,7 @@ import sys
 import os
 import shutil
 import subprocess
-import imageio
+import tifffile
 import numpy as np
 import skimage
 import skimage.color
@@ -40,7 +40,8 @@ def main(argv):
         resized = {}
         for bfimg in in_imgs:
             fn = os.path.join(in_path, bfimg.filename)
-            img = imageio.imread(fn)
+            # read multi-page tiff properly with tifffile instead of imageio
+            img = tifffile.imread(fn) 
             if len(img.shape) > 2 and nuc_channel == 0:
                 gray_rgb = False
                 if np.array_equal(img[:,:,0],img[:,:,1]) and np.array_equal(img[:,:,0],img[:,:,2]):
@@ -64,7 +65,7 @@ def main(argv):
                 if len(img.shape) == 3:
                     padshape.append((0,0))
                 img = np.pad(img, padshape, 'constant', constant_values=0)
-            imageio.imwrite(os.path.join(tmp_path, bfimg.filename), img)
+            tifffile.imwrite(os.path.join(tmp_path, bfimg.filename), img)
 
         # 2. Run image analysis workflow
         bj.job.update(progress=25, statusComment="Launching workflow...")
@@ -90,9 +91,9 @@ def main(argv):
         for bimg in in_imgs:
             shape = resized.get(bimg.filename, None)
             if shape:
-                img = imageio.imread(os.path.join(tmp_path,bimg.filename_no_extension+"_cp_masks.tif"))
+                img = tifffile.imread(os.path.join(tmp_path,bimg.filename_no_extension+"_cp_masks.tif"))
                 img = img[0:shape[0], 0:shape[1]]
-                imageio.imwrite(os.path.join(out_path,bimg.filename), img)
+                tifffile.imwrite(os.path.join(out_path,bimg.filename), img)
             else:
                 shutil.copy(os.path.join(tmp_path,bimg.filename_no_extension+"_cp_masks.tif"), os.path.join(out_path,bimg.filename))
         

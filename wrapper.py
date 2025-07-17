@@ -77,7 +77,7 @@ def main(argv):
         cp_model = bj.parameters.cp_model
         use_gpu = bj.parameters.use_gpu
         print(f"Chosen model: {cp_model} | Channel {nuc_channel} | Diameter {diameter} | Cell prob threshold {prob_thresh} | GPU {use_gpu}")
-        cmd = ["python", "-m", "cellpose", "--dir", tmp_path, "--pretrained_model", f"{cp_model}", "--save_tif", "--no_npy", "--chan", "{:d}".format(nuc_channel), "--diameter", "{:f}".format(diameter), "--cellprob_threshold", "{:f}".format(prob_thresh)]
+        cmd = ["python", "-m", "cellpose", "--dir", tmp_path, "--pretrained_model", f"{cp_model}", "--save_tif", "--no_npy", "--chan", "{:d}".format(nuc_channel), "--diameter", "{:f}".format(diameter), "--mask_threshold", "{:f}".format(prob_thresh)]
         if use_gpu:
             print("Using GPU!")
             cmd.append("--use_gpu")

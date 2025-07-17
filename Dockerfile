@@ -18,35 +18,21 @@ RUN cp /biaflows-utilities/bin/* /usr/bin/ && \
     rm -r /biaflows-utilities
 
 # ------------------------------------------------------------------------------
-
 RUN pip install imageio==2.9.0
-RUN pip install cellpose==0.6.1
+RUN pip install cellpose==0.7.2
 RUN pip install numpy==1.19.4
 RUN pip install numba==0.50.1
 
-RUN mkdir /root/.cellpose && \
-    mkdir /root/.cellpose/models && \
-    cd /root/.cellpose/models && \
-    wget http://www.cellpose.org/models/nuclei_0 && \
-    wget http://www.cellpose.org/models/nuclei_1 && \
-    wget http://www.cellpose.org/models/nuclei_2 && \
-    wget http://www.cellpose.org/models/nuclei_3 && \
-    wget http://www.cellpose.org/models/size_nuclei_0.npy && \
-    wget --no-check-certificate https://www.cellpose.org/models/cyto_0 && \
-    wget --no-check-certificate https://www.cellpose.org/models/cyto_1 && \
-    wget --no-check-certificate https://www.cellpose.org/models/cyto_2 && \
-    wget --no-check-certificate https://www.cellpose.org/models/cyto_3 && \
-    wget --no-check-certificate https://www.cellpose.org/models/size_cyto_0.npy && \
-    wget --no-check-certificate https://www.cellpose.org/models/cytotorch_0 && \
-    wget --no-check-certificate https://www.cellpose.org/models/cytotorch_1 && \
-    wget --no-check-certificate https://www.cellpose.org/models/cytotorch_2 && \
-    wget --no-check-certificate https://www.cellpose.org/models/cytotorch_3 && \
-    wget --no-check-certificate https://www.cellpose.org/models/size_cytotorch_0.npy && \
-    wget --no-check-certificate https://www.cellpose.org/models/nucleitorch_0 && \
-    wget --no-check-certificate https://www.cellpose.org/models/nucleitorch_1 && \
-    wget --no-check-certificate https://www.cellpose.org/models/nucleitorch_2 && \
-    wget --no-check-certificate https://www.cellpose.org/models/nucleitorch_3 && \
-    wget --no-check-certificate https://www.cellpose.org/models/size_nucleitorch_0.npy
+# Create cellpose models directory
+RUN mkdir -p /opt/cellpose/models
+
+# Copy local models instead of downloading
+COPY models/ /opt/cellpose/models/
+
+# Set local models path
+# This is needed to avoid downloading the models from the internet
+# and to not use home dir for storing models
+ENV CELLPOSE_LOCAL_MODELS_PATH=/opt/cellpose/models
 
 ADD wrapper.py /app/wrapper.py
 # for running the wrapper locally

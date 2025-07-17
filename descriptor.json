@@ -1,6 +1,6 @@
 {
   "name": "NucleiSegmentation-Cellpose",
-  "description": "2D nuclei segmentation using Cellpose version 0.7.2. A generalist algorithm for cell and nucleus segmentation. Cellpose was written by Carsen Stringer and Marius Pachitariu. To learn about Cellpose, read the [paper](https://t.co/kBMXmPp3Yn?amp=1).",
+  "description": "2D nuclei segmentation using Cellpose version 0.7.2. A generalist algorithm for cell and nucleus segmentation. Cellpose was written by Carsen Stringer and Marius Pachitariu.",
   "container-image": {
     "image": "torecluik/w_nucleisegmentation-cellpose",
     "type": "singularity"

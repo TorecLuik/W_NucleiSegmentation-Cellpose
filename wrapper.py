@@ -9,7 +9,7 @@ import skimage.color
 from cytomine.models import Job
 from biaflows import CLASS_OBJSEG, CLASS_SPTCNT, CLASS_PIXCLA, CLASS_TRETRC, CLASS_LOOTRC, CLASS_OBJDET, CLASS_PRTTRK, CLASS_OBJTRK
 from biaflows.helpers import BiaflowsJob, prepare_data, upload_data, upload_metrics, get_discipline
-import time
+import tempfile
 import shutil
 
 
@@ -25,12 +25,11 @@ def main(argv):
         in_imgs, gt_imgs, in_path, gt_path, out_path, tmp_path = prepare_data(problem_cls, bj, is_2d=True, **bj.flags)
         
         # MAKE SURE TMP PATH IS UNIQUE
-        try:
-            tmp_path += f"/{int(time.time() * 1000)}"  # timestamp in ms
-            os.mkdir(tmp_path)  # setup tmp
-        except FileExistsError:
-            tmp_path += f"/{int(time.time() * 10000)}"  # timestamp in ms
-            os.mkdir(tmp_path)  # setup tmp
+        # mkdtemp creates a new sibling directory atomically, so concurrent
+        # jobs never share or nest their tmp dirs (cleanup below removes
+        # only this job's directory).
+        os.makedirs(tmp_path, exist_ok=True)
+        tmp_path = tempfile.mkdtemp(dir=tmp_path)  # setup tmp
 
         # Make sure all images have at least 224x224 dimensions
         # and that minshape / maxshape * minshape >= 224
